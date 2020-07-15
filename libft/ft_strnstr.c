@@ -1,43 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strnstr.c                                          :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: tyasmine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/11 17:24:15 by mmarti            #+#    #+#             */
-/*   Updated: 2019/04/23 12:54:08 by mmarti           ###   ########.fr       */
+/*   Created: 2019/04/14 18:00:30 by tyasmine          #+#    #+#             */
+/*   Updated: 2019/04/23 03:07:00 by tyasmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include <stdio.h>
+#include "../includes/libft.h"
 
-char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
+char	*ft_strnstr(const char *hsk, const char *ndl, size_t len)
 {
-	int		i;
-	size_t	n;
-	int		tmp;
-	char	*res;
+	size_t i;
+	size_t j;
 
-	n = 0;
-	tmp = 0;
-	if (!*needle)
-		return ((char *)haystack);
-	while (n < len && haystack[n] != 0)
+	i = 0;
+	j = 0;
+	if (!(*ndl))
+		return ((char *)hsk);
+	while (i <= len)
 	{
-		i = 0;
-		while (haystack[n] != needle[i] && n < len && haystack[n] != 0)
-			n++;
-		if (haystack[n] == needle[i])
+		j = 0;
+		while ((hsk[i + j] == ndl[j] || ndl[j] == '\0')
+				&& (i + j <= len))
 		{
-			res = ((char *)&haystack[n]);
-			while (haystack[n] == needle[i] && n++ < len && needle[i] != 0)
-				i++;
-			if (needle[i] == 0)
-				return (res);
-			n = ++tmp;
+			if (ndl[j] == '\0')
+				return ((char *)hsk + i);
+			j++;
 		}
+		i++;
 	}
 	return (0);
 }

@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   memcmp.c                                           :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: tyasmine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/05 19:09:57 by mmarti            #+#    #+#             */
-/*   Updated: 2019/04/05 19:09:59 by mmarti           ###   ########.fr       */
+/*   Created: 2019/04/12 14:02:55 by tyasmine          #+#    #+#             */
+/*   Updated: 2019/04/23 03:00:12 by tyasmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
+#include "../includes/libft.h"
 
-size_t	ft_strlen(const char *string)
+size_t	ft_strlen(const char *s)
 {
-	int counter;
+	size_t i;
 
-	if (!string)
-		return (0);
-	counter = 0;
-	while (*string++)
-		counter++;
-	return (counter);
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
 }

@@ -3,41 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: tyasmine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/16 04:09:32 by mmarti            #+#    #+#             */
-/*   Updated: 2019/04/16 04:09:34 by mmarti           ###   ########.fr       */
+/*   Created: 2019/04/19 20:09:40 by tyasmine          #+#    #+#             */
+/*   Updated: 2019/04/23 03:18:17 by tyasmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include "libft.h"
+#include "../includes/libft.h"
 
-char	*ft_itoa(int n)
+static int	ft_count(int c)
 {
-	long int	nb;
-	int			sign;
-	size_t		len;
-	char		*res;
+	int q;
 
-	nb = n;
-	sign = 0;
-	len = ft_dcount(nb);
-	if (nb < 0)
+	q = 1;
+	while (c / 10)
 	{
-		sign = 1;
-		nb = -nb;
+		c = c / 10;
+		q++;
 	}
-	if (!(res = (char *)ft_memalloc(len + 1)))
-		return (0);
-	if (nb == 0)
-		res[0] = '0';
-	while (nb != 0)
+	return (q);
+}
+
+char		*ft_itoa(int n)
+{
+	int				len;
+	unsigned int	q;
+	char			*res;
+
+	len = ft_count(n);
+	len = (n < 0 ? len + 1 : len);
+	q = (n < 0 ? -n : n);
+	if (!(res = (char *)malloc(sizeof(char) * len + 1)))
+		return (NULL);
+	res[len--] = '\0';
+	while (len >= 0)
 	{
-		res[--len] = '0' + nb % 10;
-		nb /= 10;
+		res[len--] = (q % 10) + '0';
+		q /= 10;
 	}
-	if (sign == 1)
+	if (res[0] == '0' && res[1] != '\0')
 		res[0] = '-';
 	return (res);
 }

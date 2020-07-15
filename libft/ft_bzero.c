@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bzero.c                                            :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: tyasmine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/05 18:47:36 by mmarti            #+#    #+#             */
-/*   Updated: 2019/04/05 18:47:38 by mmarti           ###   ########.fr       */
+/*   Created: 2019/04/10 18:38:31 by tyasmine          #+#    #+#             */
+/*   Updated: 2019/04/23 02:54:57 by tyasmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
+#include "../includes/libft.h"
 
-void	ft_bzero(void *destination, size_t n)
+void	ft_bzero(void *s, size_t n)
 {
-	char *dest;
+	char	*str;
+	size_t	i;
 
-	dest = destination;
-	while (n--)
-		*dest++ = 0;
+	i = 0;
+	str = (char *)s;
+	while (i < n)
+	{
+		str[i] = 0;
+		i++;
+	}
 }

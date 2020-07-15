@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strcpy.c                                           :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: tyasmine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/05 19:14:55 by mmarti            #+#    #+#             */
-/*   Updated: 2019/04/05 19:14:57 by mmarti           ###   ########.fr       */
+/*   Created: 2019/04/12 16:13:14 by tyasmine          #+#    #+#             */
+/*   Updated: 2019/04/23 03:01:41 by tyasmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
-char	*ft_strcpy(char *destination, const char *source)
+char	*ft_strcpy(char *dst, const char *src)
 {
-	ft_memcpy(destination, source, ft_strlen(source) + 1);
-	return (destination);
+	int i;
+
+	i = 0;
+	while (src[i] != '\0')
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
 }

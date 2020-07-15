@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   memccpy.c                                          :+:      :+:    :+:   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: tyasmine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/05 18:56:06 by mmarti            #+#    #+#             */
-/*   Updated: 2019/04/12 15:11:07 by mmarti           ###   ########.fr       */
+/*   Created: 2019/04/11 15:19:22 by tyasmine          #+#    #+#             */
+/*   Updated: 2019/04/23 02:56:23 by tyasmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include "libft.h"
+#include "../includes/libft.h"
 
 void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 {
-	unsigned char	ch;
-	unsigned char	*dest;
-	unsigned char	*source;
-	size_t			counter;
+	size_t	i;
+	char	*str1;
+	char	*str2;
 
-	dest = (unsigned char *)dst;
-	source = (unsigned char *)src;
-	ch = (unsigned char)c;
-	counter = 0;
-	while (counter < n)
+	str1 = (char *)dst;
+	str2 = (char *)src;
+	i = 0;
+	while (i < n)
 	{
-		dest[counter] = source[counter];
-		if (dest[counter] == ch)
-			return (&dst[++counter]);
-		counter++;
+		str1[i] = str2[i];
+		if (str2[i] == (char)c)
+			return ((void *)dst);
+		i++;
 	}
-	return (0);
+	return ((void *)NULL);
 }

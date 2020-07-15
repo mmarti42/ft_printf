@@ -1,33 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   memmove.c                                          :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: tyasmine <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/05 19:02:27 by mmarti            #+#    #+#             */
-/*   Updated: 2019/04/05 19:02:30 by mmarti           ###   ########.fr       */
+/*   Created: 2019/04/11 19:35:22 by tyasmine          #+#    #+#             */
+/*   Updated: 2019/04/23 02:56:59 by tyasmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include "libft.h"
+#include "../includes/libft.h"
 
-void	*ft_memmove(void *destination, const void *source, size_t n)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	char		*dest;
-	const char	*src;
+	size_t	i;
+	char	*str1;
+	char	*str2;
 
-	src = source;
-	dest = destination;
-	if (dest < src)
-		ft_memcpy(dest, src, n);
-	else
+	i = 0;
+	str1 = (char *)dst;
+	str2 = (char *)src;
+	if (str2 > str1)
 	{
-		src += n - 1;
-		dest += n - 1;
-		while (n--)
-			*dest-- = *src--;
+		while (i < len)
+		{
+			str1[i] = str2[i];
+			i++;
+		}
 	}
-	return (destination);
+	else if (str2 < str1)
+	{
+		while (len-- != 0)
+			str1[len] = str2[len];
+	}
+	return (dst);
 }

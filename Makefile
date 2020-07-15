@@ -3,52 +3,63 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mmarti <marvin@42.fr>                      +#+  +:+       +#+         #
+#    By: tyasmine <kbessa@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/11/12 06:14:46 by mmarti            #+#    #+#              #
-#    Updated: 2019/11/12 06:14:48 by mmarti           ###   ########.fr        #
+#    Created: 2019/10/01 14:51:29 by kbessa            #+#    #+#              #
+#    Updated: 2019/10/08 14:17:48 by kbessa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprintf.a
+NAME 		=		libftprintf.a
+CC		    = 		gcc
+CFLAGS 		= 		-I includes/ -Wall -Wextra -Werror -O1
+OBJ 		= 		$(SRC:.c=.o)
 
-FLAGS = -c -Wall -Wextra -Werror -O1
+C_OK		=		"\033[35m"
+C_GOOD		=		"\033[32m"
+C_NO		=		"\033[00m"
 
-LIBFT = libft
+SUCCESS		=		$(C_GOOD)SUCCESS$(C_NO)
+OK			=		$(C_OK)OK$(C_NO)
 
-DIR_S = .
-
-DIR_O = temporary
-
-HEADER = my_lib.h
-
-SOURCES =   f_frac.c f_get_ent.c f_lst.c f_parse.c \
-            f_putnum.c f_round.c f_sup.c f_sup2.c \
-            float.c ft_i_write.c ft_printf.c \
-            ft_u_write.c ft_write.c handle_format.c my_lib.c \
-            parse.c ft_u_o.c ft_write_char.c f_spec.c
-
-OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
+SRC         =	srcs/ft_printf.c srcs/f_frac.c srcs/f_get_ent.c srcs/f_lst.c srcs/f_parse.c srcs/f_putnum.c \
+                srcs/f_round.c srcs/f_spec.c srcs/f_sup.c srcs/f_sup2.c srcs/float.c srcs/ft_lib_f.c srcs/ft_output.c \
+                srcs/ft_output_csp.c srcs/ft_output_d.c srcs/ft_output_x.c srcs/ft_pars.c srcs/ft_prt.c
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	@make -C $(LIBFT)
-	@cp libft/libft.a ./$(NAME)
-	@ar rc $(NAME) $(OBJS)
-	@ranlib $(NAME)
+%.o: %.c
+	@printf "[ft_printf] Compiling [.:]\r"
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@printf "[ft_printf] Compiling [:.]\r"
 
-$(DIR_O)/%.o: $(DIR_S)/%.c
-	@mkdir -p temporary
-	@$(CC) $(FLAGS) -I $(HEADER) -o $@ -c $<
+$(NAME): $(OBJ)
+	@make -C libft/
+
+	@cp libft/libft.a ./$(NAME)
+	@ar rc $@ $^
+	@ranlib $@
+	@echo "Compiling & indexing" [ $(NAME) ] $(SUCCESS)
 
 clean:
-	@rm -f $(OBJS)
-	@rm -rf $(DIR_O)
-	@make clean -C $(LIBFT)
+	@make clean -C libft/
+	@/bin/rm -f $(OBJ)
+	@printf "[ft_printf] Removed object files!\n"
 
 fclean: clean
-	@rm -f $(NAME)
-	@make fclean -C $(LIBFT)
+	@/bin/rm -f $(NAME)
+	@make fclean -C libft/
+	@echo "Cleaning" [ $(NAME) ] "..." $(OK)
 
 re: fclean all
+
+ifeq ($(shell uname),Darwin)
+test: re
+	cd tests/tests && $(MAKE) test
+else
+test: re
+	@echo "\n\n\033[45mBuild ok, launch tests on OSX\033[0m\n\n"
+	exit 0
+endif
+
+.PHONY: all clean fclean re test
